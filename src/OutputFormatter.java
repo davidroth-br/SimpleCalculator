@@ -1,7 +1,7 @@
 import java.lang.Math;
 import java.lang.StringBuilder;
 
-public class FormatOutput {
+public class OutputFormatter {
 
 	public StringBuilder format(Operation operation) {
 		StringBuilder answer = new StringBuilder("");

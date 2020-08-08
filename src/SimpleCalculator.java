@@ -5,10 +5,10 @@ public class SimpleCalculator {
 	public static void main(String[] args) {
 		boolean repeat = true;
 
-		GetInput userInput = new GetInput();
+		InputRetriever userInput = new InputRetriever();
 		Operation operation = new Operation();
-		Calculate simpleCalculator = new Calculate();
-		FormatOutput output = new FormatOutput();
+		Calculator simpleCalculator = new Calculator();
+		OutputFormatter output = new OutputFormatter();
 		
 		while (repeat) {
 			System.out.println("SIMPLE CALCULATOR\n");

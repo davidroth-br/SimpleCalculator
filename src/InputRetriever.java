@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GetInput {
+public class InputRetriever {
 	Scanner input = new Scanner(System.in);
 	Operation operation = new Operation();
 	String operator;

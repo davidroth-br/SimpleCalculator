@@ -1,4 +1,4 @@
-public class Calculate {
+public class Calculator {
 
 	public void calculate(Operation operation) {
 
