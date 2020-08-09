@@ -1,7 +1,8 @@
 
 class Operation {
-	public double firstOperand;
-	public double secondOperand;
-	public String operator;
-	public double total;
+	protected double firstOperand;
+	protected double secondOperand;
+	protected String operator;
+	protected double total;
+
 }

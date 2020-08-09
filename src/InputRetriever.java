@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class InputRetriever {
 	Scanner input = new Scanner(System.in);
 	Operation operation = new Operation();
-	double testedOperand;
+	private double validatedOperand;
 	
 	protected Operation expression() {
 		String fullOperation;
@@ -22,10 +22,10 @@ public class InputRetriever {
 			firstOperand = fullOperation.substring(0, operatorIndex);
 			secondOperand = fullOperation.substring(operatorIndex + 1);
 			
-			if (isValidOperand(firstOperand)) operation.firstOperand = testedOperand;
+			if (isValidOperand(firstOperand)) operation.firstOperand = validatedOperand;
 			else continue;
 			
-			if (isValidOperand(secondOperand)) operation.secondOperand = testedOperand;
+			if (isValidOperand(secondOperand)) operation.secondOperand = validatedOperand;
 			else continue;
 			
 			if ((operation.secondOperand == 0) && (operation.operator.equals("/"))) {
@@ -38,7 +38,7 @@ public class InputRetriever {
 	}
 	
 	private boolean isValidOperator(String expression) {
-		
+
 		if (expression.contains("+")) operation.operator = "+";
 		else if (expression.contains("-")) operation.operator = "-";
 		else if (expression.contains("*")) operation.operator = "*";
@@ -52,7 +52,7 @@ public class InputRetriever {
 	
 	private boolean isValidOperand(String operand) {
 		try {
-			testedOperand = Double.parseDouble(operand);
+			validatedOperand = Double.parseDouble(operand);
 		} catch (Exception e) {
 			System.out.println("Invalid operand.");
 			return false;
