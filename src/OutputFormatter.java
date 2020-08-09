@@ -1,29 +1,33 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.Math;
 import java.lang.StringBuilder;
 
-public class OutputFormatter {
+class OutputFormatter {
 
-	public StringBuilder format(Operation operation) {
-		StringBuilder answer = new StringBuilder("");
+	protected StringBuilder format(Operation operation) {
+		StringBuilder answer = new StringBuilder();
 		String operator = " " + operation.operator + " ";
 		
-		if (checkIfInteger(operation.firstOperand)) answer.append((int)operation.firstOperand);
+		if (isInteger(operation.firstOperand)) answer.append((int)operation.firstOperand);
 		else answer.append(operation.firstOperand);
 		
 		answer.append(operator);
 		
-		if (checkIfInteger(operation.secondOperand)) answer.append((int)operation.secondOperand);
+		if (isInteger(operation.secondOperand)) answer.append((int)operation.secondOperand);
 		else answer.append(operation.secondOperand);
 		
 		answer.append(" = ");
 		
-		if (checkIfInteger(operation.total)) answer.append((int)operation.total);
+		if (isInteger(operation.total)) answer.append((int)operation.total);
 		else answer.append(operation.total);
+
+		answer.append("\n");
 		
 		return answer;
 	}
 	
-	public boolean checkIfInteger(double number) {
+	private boolean isInteger(double number) {
 		return number == Math.rint(number);
 	}
 }

@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class InputRetriever {
 	Scanner input = new Scanner(System.in);
 	Operation operation = new Operation();
-	String operator;
+	double testedOperand;
 	
-	public Operation expression() {
+	protected Operation expression() {
 		String fullOperation;
 		String firstOperand;
 		String secondOperand;
@@ -22,10 +22,10 @@ public class InputRetriever {
 			firstOperand = fullOperation.substring(0, operatorIndex);
 			secondOperand = fullOperation.substring(operatorIndex + 1);
 			
-			if (isValidOperand(firstOperand)) operation.firstOperand = Double.parseDouble(firstOperand);
+			if (isValidOperand(firstOperand)) operation.firstOperand = testedOperand;
 			else continue;
 			
-			if (isValidOperand(secondOperand)) operation.secondOperand = Double.parseDouble(secondOperand);
+			if (isValidOperand(secondOperand)) operation.secondOperand = testedOperand;
 			else continue;
 			
 			if ((operation.secondOperand == 0) && (operation.operator.equals("/"))) {
@@ -37,7 +37,7 @@ public class InputRetriever {
 		return operation;
 	}
 	
-	public boolean isValidOperator(String expression) {
+	private boolean isValidOperator(String expression) {
 		
 		if (expression.contains("+")) operation.operator = "+";
 		else if (expression.contains("-")) operation.operator = "-";
@@ -50,10 +50,9 @@ public class InputRetriever {
 		return true;
 	}
 	
-	public boolean isValidOperand(String operand) {
-		double testOperand = 0.0;
+	private boolean isValidOperand(String operand) {
 		try {
-			testOperand = Double.parseDouble(operand);
+			testedOperand = Double.parseDouble(operand);
 		} catch (Exception e) {
 			System.out.println("Invalid operand.");
 			return false;
@@ -61,7 +60,7 @@ public class InputRetriever {
 		return true;
 	}
 	
-	public Boolean isAnotherExpression() {
+	protected Boolean isAnotherExpression() {
 		String choice = "";
 		
 		while (!choice.toUpperCase().equals("Y") && !choice.toUpperCase().equals("N")) {

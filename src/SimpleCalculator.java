@@ -6,7 +6,7 @@ public class SimpleCalculator {
 		boolean repeat = true;
 
 		InputRetriever userInput = new InputRetriever();
-		Operation operation = new Operation();
+		Operation operation;
 		Calculator simpleCalculator = new Calculator();
 		OutputFormatter output = new OutputFormatter();
 		

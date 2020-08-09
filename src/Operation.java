@@ -1,5 +1,5 @@
 
-public class Operation {
+class Operation {
 	public double firstOperand;
 	public double secondOperand;
 	public String operator;

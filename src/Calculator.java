@@ -1,6 +1,6 @@
-public class Calculator {
+class Calculator {
 
-	public void calculate(Operation operation) {
+	protected void calculate(Operation operation) {
 
 		switch (operation.operator) {
 		case "+":
