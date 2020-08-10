@@ -1,11 +1,9 @@
-import java.lang.StringBuilder;
-
 public class SimpleCalculator {
 
 	public static void main(String[] args) {
 		boolean repeat = true;
 
-		Operation operation;
+		Expression expression;
 		InputRetriever userInput = new InputRetriever();
 		Calculator simpleCalculator = new Calculator();
 		OutputFormatter output = new OutputFormatter();
@@ -13,11 +11,11 @@ public class SimpleCalculator {
 		while (repeat) {
 			System.out.println("SIMPLE CALCULATOR\n");
 
-			operation = userInput.expression();
+			expression = userInput.getExpression();
 			
-			simpleCalculator.calculate(operation);
+			simpleCalculator.calculate(expression);
 			
-			StringBuilder finalOutput = output.format(operation);
+			String finalOutput = output.format(expression);
 			
 			System.out.println(finalOutput);
 			

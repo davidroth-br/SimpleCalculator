@@ -2,57 +2,67 @@ import java.util.Scanner;
 
 public class InputRetriever {
 	Scanner input = new Scanner(System.in);
-	Operation operation = new Operation();
-	private double validatedOperand;
-	
-	protected Operation expression() {
-		String fullOperation;
+	Expression expression = new Expression();
+	private double validOperand;
+
+	protected Expression getExpression() {
+		String fullExpression;
+		
+		do {
+			System.out.print("Please enter the expression you wish to calculate (ex. 2+2): ");
+			fullExpression = input.nextLine();
+		}
+		while (isNotValidExpression(fullExpression));
+
+		return expression;
+	}
+
+	private boolean isNotValidExpression(String fullExpression) {
+		int operatorIndex;
 		String firstOperand;
 		String secondOperand;
-		int operatorIndex;
-		boolean error = true;
-		
-		while (error) {
-			System.out.print("Please enter the operation you wish to perform (ex. 2+2): ");
-			fullOperation = input.nextLine();
-			
-			if (!isValidOperator(fullOperation)) continue;
-			
-			operatorIndex = fullOperation.indexOf(operation.operator);
-			firstOperand = fullOperation.substring(0, operatorIndex);
-			secondOperand = fullOperation.substring(operatorIndex + 1);
-			
-			if (isValidOperand(firstOperand)) operation.firstOperand = validatedOperand;
-			else continue;
-			
-			if (isValidOperand(secondOperand)) operation.secondOperand = validatedOperand;
-			else continue;
-			
-			if ((operation.secondOperand == 0) && (operation.operator.equals("/"))) {
-				System.out.println("You cannot divide by zero.");
-				continue;
-			}
-			error = false;
-		}
-		return operation;
-	}
-	
-	private boolean isValidOperator(String expression) {
 
-		if (expression.contains("+")) operation.operator = "+";
-		else if (expression.contains("-")) operation.operator = "-";
-		else if (expression.contains("*")) operation.operator = "*";
-		else if (expression.contains("/")) operation.operator = "/";
+		if (isNotValidOperator(fullExpression)) return true;
+
+		operatorIndex = fullExpression.indexOf(expression.operator);
+		firstOperand = fullExpression.substring(0, operatorIndex);
+		secondOperand = fullExpression.substring(operatorIndex + 1);
+
+		if (isValidOperand(firstOperand)) expression.firstOperand = validOperand;
+		else return true;
+
+		if (isValidOperand(secondOperand)) expression.secondOperand = validOperand;
+		else return true;
+
+		if (isDivisionByZero()) return true;
+
+		return false;
+	}
+
+	private boolean isDivisionByZero() {
+		if ((expression.secondOperand == 0) && (expression.operator.equals("/"))) {
+			System.out.println("You cannot divide by zero.");
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isNotValidOperator(String expression) {
+
+		if (expression.contains("+")) this.expression.operator = "+";
+		else if (expression.contains("-")) this.expression.operator = "-";
+		else if (expression.contains("*")) this.expression.operator = "*";
+		else if (expression.contains("/")) this.expression.operator = "/";
 		else {
 			System.out.println("Invalid operator. (+, -, *, /)");
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	private boolean isValidOperand(String operand) {
 		try {
-			validatedOperand = Double.parseDouble(operand);
+			validOperand = Double.parseDouble(operand);
 		} catch (Exception e) {
 			System.out.println("Invalid operand.");
 			return false;
@@ -61,13 +71,15 @@ public class InputRetriever {
 	}
 	
 	protected Boolean isAnotherExpression() {
-		String choice = "";
+		String choice;
 		
-		while (!choice.toUpperCase().equals("Y") && !choice.toUpperCase().equals("N")) {
+		do {
 			System.out.print("Would you like to perform another calculation (Y/N)? ");
 			choice = input.nextLine();
 			System.out.println();
 		}
+		while (!choice.toUpperCase().equals("Y") && !choice.toUpperCase().equals("N"));
+
 		return choice.toUpperCase().equals("Y");
 	}
 }

@@ -1,19 +1,19 @@
 class Calculator {
 
-	protected void calculate(Operation operation) {
+	protected void calculate(Expression expression) {
 
-		switch (operation.operator) {
+		switch (expression.operator) {
 		case "+":
-			operation.total = operation.firstOperand + operation.secondOperand;
+			expression.total = expression.firstOperand + expression.secondOperand;
 			break;
 		case "-":
-			operation.total = operation.firstOperand - operation.secondOperand;
+			expression.total = expression.firstOperand - expression.secondOperand;
 			break;
 		case "*":
-			operation.total = operation.firstOperand * operation.secondOperand;
+			expression.total = expression.firstOperand * expression.secondOperand;
 			break;
 		case "/":
-			operation.total = operation.firstOperand / operation.secondOperand;
+			expression.total = expression.firstOperand / expression.secondOperand;
 			break;
 		default:
 			break;

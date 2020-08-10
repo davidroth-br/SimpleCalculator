@@ -1,31 +1,21 @@
 import java.lang.Math;
-import java.lang.StringBuilder;
 
 class OutputFormatter {
 
-	protected StringBuilder format(Operation operation) {
-		StringBuilder answer = new StringBuilder();
-		String operator = " " + operation.operator + " ";
-		
-		if (isInteger(operation.firstOperand)) answer.append((int)operation.firstOperand);
-		else answer.append(operation.firstOperand);
-		
-		answer.append(operator);
-		
-		if (isInteger(operation.secondOperand)) answer.append((int)operation.secondOperand);
-		else answer.append(operation.secondOperand);
-		
-		answer.append(" = ");
-		
-		if (isInteger(operation.total)) answer.append((int)operation.total);
-		else answer.append(operation.total);
+	protected String format(Expression expression) {
+		String firstOperand = convertNumber(expression.firstOperand);
+		String secondOperand = convertNumber(expression.secondOperand);
+		String total = convertNumber(expression.total);
 
-		answer.append("\n");
-		
-		return answer;
+		return firstOperand + " " + expression.operator + " " + secondOperand + " = " + total + "\n";
 	}
-	
-	private boolean isInteger(double number) {
-		return number == Math.rint(number);
+
+	private String convertNumber(double number) {
+		String convertedNumber;
+
+		if (number == Math.rint(number)) convertedNumber = String.valueOf((int) number);
+		else convertedNumber = String.valueOf(number);
+
+		return convertedNumber;
 	}
 }

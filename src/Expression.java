@@ -1,5 +1,5 @@
 
-class Operation {
+class Expression {
 	protected double firstOperand;
 	protected double secondOperand;
 	protected String operator;
