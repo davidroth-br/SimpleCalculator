@@ -13,8 +13,13 @@ public class SimpleCalculator {
 
 			expression = userInput.getExpression();
 			
+			//como falei no outro arquivo:
+			// podia ser 
+			// double total = simpleCalculator.calculate(expression);
 			simpleCalculator.calculate(expression);
 			
+			//e:
+			//String finalOutput = output.format(expression, total);
 			String finalOutput = output.format(expression);
 			
 			System.out.println(finalOutput);
