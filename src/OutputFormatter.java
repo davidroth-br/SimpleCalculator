@@ -3,6 +3,7 @@ import java.lang.Math;
 class OutputFormatter {
 
 	protected String format(Expression expression) {
+		//tem certeza que voce precisar disso: convertNumber? acho desnecessario
 		String firstOperand = convertNumber(expression.firstOperand);
 		String secondOperand = convertNumber(expression.secondOperand);
 		String total = convertNumber(expression.total);
