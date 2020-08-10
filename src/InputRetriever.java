@@ -8,6 +8,9 @@ public class InputRetriever {
 	protected Expression getExpression() {
 		String fullExpression;
 		
+		// e se digitarem 2+2+2?
+		// e 2+-2?
+		// vopce podia tentar fazer uns JUnits
 		do {
 			System.out.print("Please enter the expression you wish to calculate (ex. 2+2): ");
 			fullExpression = input.nextLine();
@@ -28,6 +31,7 @@ public class InputRetriever {
 		firstOperand = fullExpression.substring(0, operatorIndex);
 		secondOperand = fullExpression.substring(operatorIndex + 1);
 
+		//voce gosta de if/else assim? acho mais lisivel quebrando a linha
 		if (isValidOperand(firstOperand)) expression.firstOperand = validOperand;
 		else return true;
 
@@ -60,6 +64,13 @@ public class InputRetriever {
 		return false;
 	}
 	
+	//nao sei se a syntax ta certa :D :D
+	//public class Operand {
+	// boolean valid;
+	// double value;
+	//}
+	
+	//porque nao? Operand GetValidOperand(String operand)
 	private boolean isValidOperand(String operand) {
 		try {
 			validOperand = Double.parseDouble(operand);
@@ -75,6 +86,9 @@ public class InputRetriever {
 		
 		do {
 			System.out.print("Would you like to perform another calculation (Y/N)? ");
+			// podia colocar .toUpperCase() aqui:
+			// choice = input.nextLine().toUpperCase();
+			// e evitar repetir?
 			choice = input.nextLine();
 			System.out.println();
 		}
