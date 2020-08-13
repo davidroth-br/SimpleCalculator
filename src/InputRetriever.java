@@ -7,14 +7,23 @@ public class InputRetriever {
 
 	protected Expression getExpression() {
 		String fullExpression;
+		String formattedExpression;
 		
 		do {
 			System.out.print("Please enter the expression you wish to calculate (ex. 2+2): ");
 			fullExpression = input.nextLine();
+			formattedExpression = removeSpaces(fullExpression);
 		}
-		while (isNotValidExpression(fullExpression));
+		while (isNotValidExpression(formattedExpression));
 
 		return expression;
+	}
+
+	private String removeSpaces(String fullExpression) {
+		String space = " ";
+		String empty = "";
+
+		return fullExpression.replace(space, empty);
 	}
 
 	private boolean isNotValidExpression(String fullExpression) {
@@ -39,20 +48,12 @@ public class InputRetriever {
 		return false;
 	}
 
-	private boolean isDivisionByZero() {
-		if ((expression.secondOperand == 0) && (expression.operator.equals("/"))) {
-			System.out.println("You cannot divide by zero.");
-			return true;
-		}
-		return false;
-	}
+	private boolean isNotValidOperator(String fullExpression) {
 
-	private boolean isNotValidOperator(String expression) {
-
-		if (expression.contains("+")) this.expression.operator = "+";
-		else if (expression.contains("-")) this.expression.operator = "-";
-		else if (expression.contains("*")) this.expression.operator = "*";
-		else if (expression.contains("/")) this.expression.operator = "/";
+		if (fullExpression.contains("+")) expression.operator = "+";
+		else if (fullExpression.contains("-")) expression.operator = "-";
+		else if (fullExpression.contains("*")) expression.operator = "*";
+		else if (fullExpression.contains("/")) expression.operator = "/";
 		else {
 			System.out.println("Invalid operator. (+, -, *, /)");
 			return true;
@@ -61,6 +62,7 @@ public class InputRetriever {
 	}
 	
 	private boolean isValidOperand(String operand) {
+
 		try {
 			validOperand = Double.parseDouble(operand);
 		} catch (Exception e) {
@@ -69,17 +71,25 @@ public class InputRetriever {
 		}
 		return true;
 	}
-	
+
+	private boolean isDivisionByZero() {
+		if ((expression.secondOperand == 0) && (expression.operator.equals("/"))) {
+			System.out.println("You cannot divide by zero.");
+			return true;
+		}
+		return false;
+	}
+
 	protected Boolean isAnotherExpression() {
 		String choice;
 		
 		do {
 			System.out.print("Would you like to perform another calculation (Y/N)? ");
-			choice = input.nextLine();
+			choice = input.nextLine().toUpperCase();
 			System.out.println();
 		}
-		while (!choice.toUpperCase().equals("Y") && !choice.toUpperCase().equals("N"));
+		while (!choice.equals("Y") && !choice.equals("N"));
 
-		return choice.toUpperCase().equals("Y");
+		return choice.equals("Y");
 	}
 }
