@@ -1,13 +1,14 @@
 import java.lang.Math;
+import java.util.ArrayList;
 
 class OutputFormatter {
 
-	protected String format(Expression expression) {
-		String firstOperand = convertNumber(expression.firstOperand);
-		String secondOperand = convertNumber(expression.secondOperand);
-		String total = convertNumber(expression.total);
+	protected String formatOutput(ArrayList<Object> expressionArray, double result) {
+		String firstOperand = convertNumber((Double) expressionArray.get(0));
+		String secondOperand = convertNumber((Double) expressionArray.get(2));
+		String total = convertNumber(result);
 
-		return firstOperand + " " + expression.operator + " " + secondOperand + " = " + total + "\n";
+		return firstOperand + " " + expressionArray.get(1) + " " + secondOperand + " = " + total + "\n";
 	}
 
 	private String convertNumber(double number) {
@@ -18,4 +19,6 @@ class OutputFormatter {
 
 		return convertedNumber;
 	}
+
+
 }

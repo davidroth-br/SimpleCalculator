@@ -1,38 +1,30 @@
+import java.util.ArrayList;
+
 class Calculator {
 
-	protected void calculate(Expression expression) {
+	protected double calculate(ArrayList<Object> expressionArray) {
+		double firstOperand = (Double) expressionArray.get(0);
+		String operator = (String) expressionArray.get(1);
+		double secondOperand = (Double) expressionArray.get(2);
+		double total = 0;
 
-		switch (expression.operator) {
+
+		switch (operator) {
 		case "+":
-			expression.total = add(expression);
+			total = firstOperand + secondOperand;
 			break;
 		case "-":
-			expression.total = subtract(expression);
+			total = firstOperand - secondOperand;
 			break;
 		case "*":
-			expression.total = multiply(expression);
+			total = firstOperand * secondOperand;
 			break;
 		case "/":
-			expression.total = divide(expression);
+			total = firstOperand / secondOperand;
 			break;
 		default:
 			break;
 		}
-	}
-
-	private double add(Expression expression) {
-		return expression.firstOperand + expression.secondOperand;
-	}
-
-	private double subtract(Expression expression) {
-		return expression.firstOperand - expression.secondOperand;
-	}
-
-	private double multiply(Expression expression) {
-		return expression.firstOperand * expression.secondOperand;
-	}
-
-	private double divide(Expression expression) {
-		return expression.firstOperand / expression.secondOperand;
+		return total;
 	}
 }
