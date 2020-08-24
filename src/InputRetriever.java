@@ -5,32 +5,25 @@ public class InputRetriever {
 	Scanner input = new Scanner(System.in);
 
 	protected ArrayList<Object> getExpression() {
+		Object end = "end";
 		String fullExpression;
-		ArrayList<Object> expressionArray;
+		ArrayList<Object> expressionArray = new ArrayList<>();
 		InputFormatter inputFormatter = new InputFormatter();
 		ExpressionValidator validator = new ExpressionValidator();
 		
 		do {
-			System.out.print("Please enter the expression you wish to calculate (ex. 2+2): ");
+			System.out.print("Please enter the expression you wish to calculate or 'end' to exit: ");
 			fullExpression = input.nextLine();
+
+			if (fullExpression.toLowerCase().equals(end)) {
+				expressionArray.add(end);
+				break;
+			}
 
 			expressionArray = inputFormatter.formatInput(fullExpression);
 		}
 		while (validator.isNotValid(expressionArray));
 
 		return expressionArray;
-	}
-
-	protected Boolean isAnotherExpression() {
-		String choice;
-		
-		do {
-			System.out.print("Would you like to perform another calculation (Y/N)? ");
-			choice = input.nextLine().toUpperCase();
-			System.out.println();
-		}
-		while (!choice.equals("Y") && !choice.equals("N"));
-
-		return choice.equals("Y");
 	}
 }

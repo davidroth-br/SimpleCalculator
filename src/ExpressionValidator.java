@@ -43,7 +43,7 @@ public class ExpressionValidator {
 
     private boolean isNotValidOperator(Object element) {
         String[] operators = {"+", "-", "*", "/"};
-        List operatorList = Arrays.asList(operators);
+        List<Object> operatorList = Arrays.asList(operators);
         if (!operatorList.contains(element)) {
             System.out.println("Invalid operator.");
             return true;

@@ -3,12 +3,8 @@ import java.util.ArrayList;
 public class InputFormatter {
 
     protected ArrayList<Object> formatInput(String fullExpression) {
-        ArrayList<Object> expressionArray;
         String expressionNoSpaces = removeSpaces(fullExpression);
-        expressionArray = separateElements(expressionNoSpaces);
-        expressionArray = checkForNegativeNumbers(expressionArray);
-
-        return expressionArray;
+        return separateElements(expressionNoSpaces);
     }
 
     private String removeSpaces(String fullExpression) {
@@ -18,27 +14,33 @@ public class InputFormatter {
     }
 
     private ArrayList<Object> separateElements(String expressionNoSpaces) {
-        int fullExpressionSize = expressionNoSpaces.length();
         ArrayList<Object> expressionElements = new ArrayList<>();
-        String completeNumber = "";
+        String number = "";
 
-        for (int i = 0; i < fullExpressionSize; ++i) {
-            char individualCharacter = expressionNoSpaces.charAt(i);
-
-            if (isPartOfNumber(individualCharacter)) {
-                completeNumber += individualCharacter;
+        for (char element : expressionNoSpaces.toCharArray()) {
+            if (isPartOfNumber(element)) {
+                number = addToNumber(number, element);
             } else {
-                if (isValidNumber(completeNumber)) {
-                    expressionElements.add(Double.parseDouble(completeNumber));
-                }
-                completeNumber = "";
-                expressionElements.add(String.valueOf(individualCharacter));
+                addNumberToExpression(expressionElements, number);
+                number = "";
+                expressionElements.add(String.valueOf(element));
             }
         }
+
+        addNumberToExpression(expressionElements, number);
+
+        return checkForNegativeNumbers(expressionElements);
+    }
+
+    private String addToNumber(String number, char element) {
+        number += element;
+        return number;
+    }
+
+    private void addNumberToExpression(ArrayList<Object> expressionElements, String completeNumber) {
         if (isValidNumber(completeNumber)) {
             expressionElements.add(Double.parseDouble(completeNumber));
         }
-        return expressionElements;
     }
 
     private boolean isValidNumber(String completeNumber) {
