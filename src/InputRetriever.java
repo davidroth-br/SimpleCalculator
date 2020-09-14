@@ -1,29 +1,26 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputRetriever {
-	Scanner input = new Scanner(System.in);
 
-	protected ArrayList<Object> getExpression() {
-		Object end = "end";
-		String fullExpression;
-		ArrayList<Object> expressionArray = new ArrayList<>();
-		InputFormatter inputFormatter = new InputFormatter();
-		ExpressionValidator validator = new ExpressionValidator();
+	protected String getExpression() {
+		Scanner input = new Scanner(System.in);
+		String end = "end";
+		String expression;
+		boolean invalidExpression;
 		
 		do {
 			System.out.print("Please enter the expression you wish to calculate or 'end' to exit: ");
-			fullExpression = input.nextLine();
+			expression = input.nextLine();
 
-			if (fullExpression.toLowerCase().equals(end)) {
-				expressionArray.add(end);
-				break;
+			expression = InputFormatter.formatInput(expression);
+			invalidExpression = ExpressionValidator.isNotValid(expression);
+
+			if (invalidExpression && !expression.equalsIgnoreCase(end)) {
+				System.out.println(expression + " = Invalid expression\n");
 			}
-
-			expressionArray = inputFormatter.formatInput(fullExpression);
 		}
-		while (validator.isNotValid(expressionArray));
+		while (invalidExpression && !expression.equalsIgnoreCase(end));
 
-		return expressionArray;
+		return expression;
 	}
 }

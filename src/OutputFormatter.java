@@ -4,6 +4,8 @@ import java.util.ArrayList;
 class OutputFormatter {
 
 	protected String formatOutput(ArrayList<Object> expressionArray, double result) {
+
+
 		String firstOperand = convertNumber((Double) expressionArray.get(0));
 		String secondOperand = convertNumber((Double) expressionArray.get(2));
 		String total = convertNumber(result);
