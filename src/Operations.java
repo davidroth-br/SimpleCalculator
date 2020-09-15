@@ -58,23 +58,23 @@ public class Operations {
         ArrayList<String> splitExpression = ExpressionSplitter.split(expression, '/');
         String firstElement = splitExpression.get(0);
         double result = Math.pow(getInitialValue(firstElement), 2);
-
-        for (String number : splitExpression) {
-            result /= (Double.parseDouble(number));
-        }
-
-        return Double.toString(result);
+        if (result != 0) {
+            for (String number : splitExpression) {
+                result /= (Double.parseDouble(number));
+            }
+            return Double.toString(result);
+        } else return "0";
     }
 
     private static double getInitialValue(String firstElement) {
-        double initialValue;
         StringBuilder firstNumber = new StringBuilder();
         int index = 0;
+
         do {
             firstNumber.append(firstElement.charAt(index));
             index++;
         } while (index < firstElement.length() && (Character.isDigit(firstElement.charAt(index)) || firstElement.charAt(index) == '.'));
-        initialValue = Double.parseDouble(firstNumber.toString());
-        return initialValue;
+
+        return Double.parseDouble(firstNumber.toString());
     }
 }
