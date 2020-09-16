@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Operations {
+class Operations {
 
-    static String parseAddition(String expression) {
+    protected static String parseAddition(String expression) {
         double result = 0;
         ArrayList<String> splitExpression = ExpressionSplitter.split(expression, '+');
 
@@ -17,7 +17,7 @@ public class Operations {
     private static String parseSubtraction(String expression) {
         ArrayList<String> splitExpression = ExpressionSplitter.split(expression, '-');
 
-        if (splitExpression.get(0).equals("")) {
+        if (splitExpression.get(0).equals(Constants.empty)) {
             splitExpression.remove(0);
             splitExpression.set(0, "-" + splitExpression.get(0));
         }
@@ -57,7 +57,9 @@ public class Operations {
     private static String parseDivision(String expression) {
         ArrayList<String> splitExpression = ExpressionSplitter.split(expression, '/');
         String firstElement = splitExpression.get(0);
+
         double result = Math.pow(getInitialValue(firstElement), 2);
+
         if (result != 0) {
             for (String number : splitExpression) {
                 result /= (Double.parseDouble(number));
@@ -75,6 +77,10 @@ public class Operations {
             index++;
         } while (index < firstElement.length() && (Character.isDigit(firstElement.charAt(index)) || firstElement.charAt(index) == '.'));
 
+        if (firstNumber.toString().equals("N")) {
+        //if (Double.isNaN(Double.valueOf(firstNumber.toString()))) {
+            return Double.NaN;
+        }
         return Double.parseDouble(firstNumber.toString());
     }
 }

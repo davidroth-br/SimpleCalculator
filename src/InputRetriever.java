@@ -1,25 +1,24 @@
 import java.util.Scanner;
 
-public class InputRetriever {
+class InputRetriever {
 
-	protected String getExpression() {
+	protected static String getExpression() {
 		Scanner input = new Scanner(System.in);
-		String end = "end";
+
 		String expression;
-		boolean invalidExpression;
+		boolean validExpression;
 		
 		do {
 			System.out.print("Please enter the expression you wish to calculate or 'end' to exit: ");
-			expression = input.nextLine();
+			expression = input.nextLine().replace(Constants.space, Constants.empty);
 
-			expression = InputFormatter.formatInput(expression);
-			invalidExpression = ExpressionValidator.isNotValid(expression);
+			validExpression = ExpressionValidator.isValid(expression);
 
-			if (invalidExpression && !expression.equalsIgnoreCase(end)) {
+			if (!validExpression && !expression.equalsIgnoreCase(Constants.end)) {
 				System.out.println(expression + " = Invalid expression\n");
 			}
 		}
-		while (invalidExpression && !expression.equalsIgnoreCase(end));
+		while (!validExpression && !expression.equalsIgnoreCase(Constants.end));
 
 		return expression;
 	}

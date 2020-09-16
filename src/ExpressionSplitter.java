@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class ExpressionSplitter {
+class ExpressionSplitter {
 
-    static ArrayList<String> split(String expression, char operator) {
+    protected static ArrayList<String> split(String expression, char operator) {
         ArrayList<String> result = new ArrayList<>();
         StringBuilder currentChunk = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class ExpressionSplitter {
     }
 
     private static String removeSurroundingParentheses(String expression) {
-        if (expression.startsWith("(") && expression.endsWith(")")) {
+        if (expression.startsWith(Constants.open) && expression.endsWith(Constants.close)) {
             expression = expression.substring(1, expression.length() -1);
         }
         return expression;

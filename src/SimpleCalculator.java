@@ -4,12 +4,11 @@ public class SimpleCalculator {
 
 	public static void main(String[] args) {
 		String expression;
-		InputRetriever userInput = new InputRetriever();
 
 		System.out.println("SIMPLE CALCULATOR\n");
 
 		do {
-			expression = userInput.getExpression();
+			expression = InputRetriever.getExpression();
 
 			if (isNotEnd(expression)) {
 
@@ -31,14 +30,14 @@ public class SimpleCalculator {
 	}
 
 	private static boolean isNotEnd(String expression) {
-		return !expression.equals("end");
+		return !expression.equals(Constants.end);
 	}
 }
 /*
 TEST EXPRESSIONS
 
 -325*(76+(542-32/(98+15)-65)*7)-58 = -1109288.75221239
--325.26*(76.12+(542.54-32.6/(98.2+15.6)-65.4)*7.4)-58.8 =
+-325.26*(76.12+(542.54-32.6/(98.2+15.6)-65.4)*7.4)-58.8 = -1172567.80309076
 76+(542-32/(98+15)-65) = 552.71681416
 2+2 = 4
 (2+2) = 4
@@ -55,5 +54,6 @@ TEST EXPRESSIONS
 .2*-.3 = -0.06
 5-x = INVALID
 2    +  2    = 4
+-7-(9.2/0) = INVALID
 
  */

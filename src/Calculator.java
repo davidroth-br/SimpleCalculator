@@ -1,4 +1,4 @@
-public class Calculator {
+class Calculator {
 
     protected static String calculate(String expression) {
         String result;

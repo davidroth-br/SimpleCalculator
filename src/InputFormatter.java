@@ -1,4 +1,4 @@
-public class InputFormatter {
+class InputFormatter {
 
     protected static String formatInput(String fullExpression) {
         return removeSpaces(fullExpression);
