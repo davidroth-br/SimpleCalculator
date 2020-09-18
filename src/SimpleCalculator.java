@@ -12,7 +12,7 @@ public class SimpleCalculator {
 
 			if (isNotEnd(expression)) {
 
-				String total = Calculator.calculate(expression);
+				String total = ExpressionSeparator.separate(expression);
 
 				if (Double.isNaN(Double.parseDouble(total))) {
 					total = "Invalid expression";
@@ -26,7 +26,7 @@ public class SimpleCalculator {
 			}
 		} while (isNotEnd(expression));
 
-		System.out.println("\nThanks for using Simple Calculator!");
+		System.out.println("\nThanks for using Simple ExpressionSeparator!");
 	}
 
 	private static boolean isNotEnd(String expression) {
@@ -55,5 +55,6 @@ TEST EXPRESSIONS
 5-x = INVALID
 2    +  2    = 4
 -7-(9.2/0) = INVALID
+999-(+4) = 995
 
  */

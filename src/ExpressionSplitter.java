@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class ExpressionSplitter {
 
-    protected static ArrayList<String> split(String expression, char operator) {
+    protected static ArrayList<String> split(String expression, String operator) {
         ArrayList<String> result = new ArrayList<>();
         StringBuilder currentChunk = new StringBuilder();
 
@@ -10,7 +10,7 @@ class ExpressionSplitter {
 
         for (int i = 0; i < expression.length(); ++i) {
 
-            if (operator == expression.charAt(i)) {
+            if (expression.startsWith(operator, i)) {
                 if (isNegativeNumber(expression, operator, i)) {
                     currentChunk.append(expression.charAt(i));
                 } else {
@@ -24,9 +24,11 @@ class ExpressionSplitter {
         return result;
     }
 
-    private static boolean isNegativeNumber(String expression, char operator, int i) {
-        return operator == '-' && i != 0 && (expression.charAt(i - 1) == '-' ||
-                expression.charAt(i - 1) == '*' || expression.charAt(i - 1) == '/');
+    private static boolean isNegativeNumber(String expression, String operator, int i) {
+        return operator.equals(Constants.subtraction) &&
+                i != 0 && (expression.startsWith(Constants.subtraction, (i - 1)) ||
+                expression.startsWith(Constants.multiplication, (i - 1)) ||
+                expression.startsWith(Constants.division, (i - 1)));
     }
 
     private static String removeSurroundingParentheses(String expression) {

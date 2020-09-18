@@ -1,58 +1,94 @@
+import java.util.ArrayList;
+
 class Calculator {
 
-    protected static String calculate(String expression) {
-        String result;
-        int openParenthesesIndex = findOpenParentheses(expression);
+    protected static String add(String expression) {
+        double result = 0;
 
-        if (openParenthesesIndex == 0 && !isOpenParenthesis(expression.charAt(0))) {
-            result = Operations.parseAddition(expression);
-        } else {
-            String expressionFragment = getExpressionFragment(expression, openParenthesesIndex);
-            result = calculate(expressionFragment);
+        expression = Formatter.reformatOperators(expression);
+
+        ArrayList<String> splitExpression = ExpressionSplitter.split(expression, Constants.addition);
+        for (String subExpression : splitExpression) {
+            String resultSubtraction = subtract(subExpression);
+            result += (Double.parseDouble(resultSubtraction));
         }
 
-        return result;
+        return Double.toString(result);
     }
 
-    private static int findOpenParentheses(String expression) {
-        int openParenthesesIndex = 0;
-        for (int i = 0; i < expression.length(); ++i) {
-            char currentCharacter = expression.charAt(i);
-            if (isOpenParenthesis(currentCharacter)) {
-                openParenthesesIndex = i;
+    private static String subtract(String expression) {
+        ArrayList<String> splitExpression = ExpressionSplitter.split(expression, Constants.subtraction);
+
+        if (splitExpression.get(0).equals(Constants.empty)) {
+            splitExpression.remove(0);
+            splitExpression.set(0, Constants.subtraction + splitExpression.get(0));
+        }
+
+        String initialValue = splitExpression.get(0);
+        double result = 0;
+
+        for (int i = 0; i < splitExpression.size(); ++i) {
+            String resultMultiplication = multiply(splitExpression.get(i));
+
+            if (i == 0) {
+                if (resultMultiplication.equals(initialValue)) {
+                    result = Double.parseDouble(initialValue) * 2;
+                } else {
+                    result = Double.parseDouble(resultMultiplication) * 2;
+                }
             }
+
+            result -= (Double.parseDouble(resultMultiplication));
         }
-        return openParenthesesIndex;
+
+        return Double.toString(result);
     }
 
-    private static String getExpressionFragment(String expression, int openParenthesesIndex) {
-        String newExpression = expression.substring(0, openParenthesesIndex);
-        int closeParenthesesIndex = 0;
-        StringBuilder subExpression = new StringBuilder();
+    private static String multiply(String expression) {
+        ArrayList<String> splitExpression = ExpressionSplitter.split(expression, Constants.multiplication);
+        double result = 1;
 
-        for (int i = openParenthesesIndex + 1; i < expression.length(); i++) {
-            if (isCloseParenthesis(expression.charAt(i))) {
-                closeParenthesesIndex = i;
-                break;
-            } else if (i == expression.length() - 1) {
-                closeParenthesesIndex = i;
-                subExpression.append(expression.charAt(i));
-                break;
+        for (String number : splitExpression) {
+            String resultDivision = divide(number);
+            result *= (Double.parseDouble(resultDivision));
+        }
+
+        return Double.toString(result);
+    }
+
+    private static String divide(String expression) {
+
+        if (expression.contains(Constants.subtraction + Constants.subtraction)) {
+            expression = expression.replace("--", "+");
+        }
+
+        ArrayList<String> splitExpression = ExpressionSplitter.split(expression, Constants.division);
+        String firstElement = splitExpression.get(0);
+
+        double result = Math.pow(getInitialValue(firstElement), 2);
+
+        if (result != 0) {
+            for (String number : splitExpression) {
+                result /= (Double.parseDouble(number));
             }
-            subExpression.append(expression.charAt(i));
+            return Double.toString(result);
+        } else return "0";
+    }
+
+    private static double getInitialValue(String firstElement) {
+        StringBuilder firstNumber = new StringBuilder();
+        int index = 0;
+
+        do {
+            firstNumber.append(firstElement.charAt(index));
+            index++;
+        } while (index < firstElement.length() && (Character.isDigit(firstElement.charAt(index)) ||
+                firstElement.startsWith(Constants.decimal, index)));
+
+
+        if (firstNumber.toString().equals("N")) {
+            return Double.NaN;
         }
-
-        String subExpressionResult = Operations.parseAddition(subExpression.toString());
-        newExpression += (subExpressionResult + expression.substring(closeParenthesesIndex + 1));
-        return newExpression;
+        return Double.parseDouble(firstNumber.toString());
     }
-
-    private static boolean isOpenParenthesis(char character) {
-        return character == '(';
-    }
-
-    private static boolean isCloseParenthesis(char character) {
-        return character == ')';
-    }
-
 }
