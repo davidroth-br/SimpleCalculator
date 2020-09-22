@@ -22,4 +22,11 @@ class Formatter {
         }
         return expression;
     }
+
+    protected static String reformatDoubleNegative(String expression) {
+        if (expression.contains(Constants.subtraction + Constants.subtraction)) {
+            expression = expression.replace((Constants.subtraction + Constants.subtraction), Constants.addition);
+        }
+        return expression;
+    }
 }

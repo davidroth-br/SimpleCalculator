@@ -58,9 +58,7 @@ class Calculator {
 
     private static String divide(String expression) {
 
-        if (expression.contains(Constants.subtraction + Constants.subtraction)) {
-            expression = expression.replace("--", "+");
-        }
+        expression = Formatter.reformatDoubleNegative(expression);
 
         ArrayList<String> splitExpression = ExpressionSplitter.split(expression, Constants.division);
         String firstElement = splitExpression.get(0);
@@ -84,7 +82,6 @@ class Calculator {
             index++;
         } while (index < firstElement.length() && (Character.isDigit(firstElement.charAt(index)) ||
                 firstElement.startsWith(Constants.decimal, index)));
-
 
         if (firstNumber.toString().equals("N")) {
             return Double.NaN;
