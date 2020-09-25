@@ -26,7 +26,7 @@ public class SimpleCalculator {
 			}
 		} while (isNotEnd(expression));
 
-		System.out.println("\nThanks for using Simple ExpressionSeparator!");
+		System.out.println("\nThanks for using Simple Calculator!");
 	}
 
 	private static boolean isNotEnd(String expression) {
